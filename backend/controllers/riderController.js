@@ -23,22 +23,53 @@ const createRider = async (req, res) => {
   const {
     firstName,
     lastName,
-    password,
+    ride,
     country,
-    email,
+    rideType,
     homeAddress,
     phoneNumber,
     dateofBirth,
   } = req.body;
+  let emptyFields = [];
+
+  if (!firstName) {
+    emptyFields.push("firstName");
+  }
+  if (!lastName) {
+    emptyFields.push("lastName");
+  }
+  if (!ride) {
+    emptyFields.push("ride");
+  }
+  if (!country) {
+    emptyFields.push("country");
+  }
+  if (!rideType) {
+    emptyFields.push("rideType");
+  }
+  if (!homeAddress) {
+    emptyFields.push("homeAddress");
+  }
+  if (!phoneNumber) {
+    emptyFields.push("phoneNumber");
+  }
+  if (!dateofBirth) {
+    emptyFields.push("dateofBirth");
+  }
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all the fields", emptyFields });
+  }
 
   //add doc to db
   try {
     const rider = await Rider.create({
       firstName,
       lastName,
-      password,
+      ride,
       country,
-      email,
+      rideType,
       homeAddress,
       phoneNumber,
       dateofBirth,
@@ -54,12 +85,12 @@ const deleteRider = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such rider" });
+    return res.status(404).json({ error: "No such ride" });
   }
 
   const rider = await Rider.findOneAndDelete({ _id: id });
   if (!rider) {
-    return res.status(404).json({ error: "No such rider" });
+    return res.status(404).json({ error: "No such ride" });
   }
   res.status(200).json(rider);
 };
@@ -68,7 +99,7 @@ const updateRider = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such rider" });
+    return res.status(404).json({ error: "No such ride" });
   }
 
   const rider = await Rider.findOneAndUpdate(
@@ -78,7 +109,7 @@ const updateRider = async (req, res) => {
     }
   );
   if (!rider) {
-    return res.status(404).json({ error: "No such rider" });
+    return res.status(404).json({ error: "No such ride" });
   }
   res.status(200).json(rider);
 };
