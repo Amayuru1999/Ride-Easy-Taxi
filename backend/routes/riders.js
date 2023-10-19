@@ -6,8 +6,10 @@ const {
   deleteRider,
   updateRider,
 } = require("../controllers/riderController");
-const router = express.Router();
 
+const requireAuth = require("../middleware/requireAuth");
+const router = express.Router();
+router.use(requireAuth);
 //GET all workouts
 router.get("/", getRiders);
 
