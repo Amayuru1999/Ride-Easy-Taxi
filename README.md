@@ -15,7 +15,7 @@ RideEasy is a web application designed to facilitate ridesharing and connecting 
 - **User Authentication**: Secure authentication system for users to sign up and log in.
 - **Ride Listings**: Display available rides for users to choose from.
 - **Profile Management**: Update user profiles and preferences.
-- **Responsive Design**: Ensure the application is accessible on various devices.
+.
 
 ## Installation
 
